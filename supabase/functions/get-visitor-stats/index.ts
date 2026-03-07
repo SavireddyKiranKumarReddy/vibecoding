@@ -4,17 +4,19 @@ const DEFAULT_ALLOWED_ORIGINS = [
   'http://localhost:8080',
   'http://localhost:8081',
 ]
-const ALLOWED_ORIGINS = (Deno.env.get('ALLOWED_ORIGINS') ?? DEFAULT_ALLOWED_ORIGINS.join(','))
+const CONFIGURED_ALLOWED_ORIGINS = (Deno.env.get('ALLOWED_ORIGINS') ?? '').trim()
+const ALLOWED_ORIGINS = (CONFIGURED_ALLOWED_ORIGINS || DEFAULT_ALLOWED_ORIGINS.join(','))
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean)
-const ALLOW_ALL_ORIGINS = ALLOWED_ORIGINS.includes('*')
+const ALLOW_ALL_ORIGINS = !CONFIGURED_ALLOWED_ORIGINS || ALLOWED_ORIGINS.includes('*')
 const INDIA_TIMEZONE = 'Asia/Kolkata'
 const VISITOR_BASE_COUNT = Number.parseInt(Deno.env.get('VISITOR_BASE_COUNT') ?? '147', 10) || 147
 
 function isAllowedOrigin(origin: string | null) {
+  if (ALLOW_ALL_ORIGINS) return true
   if (!origin) return false
-  if (ALLOW_ALL_ORIGINS || ALLOWED_ORIGINS.includes(origin)) return true
+  if (ALLOWED_ORIGINS.includes(origin)) return true
 
   try {
     const parsed = new URL(origin)
@@ -36,7 +38,7 @@ function getCorsHeaders(origin: string | null) {
     ...(!ALLOW_ALL_ORIGINS && isAllowed && origin ? { 'Access-Control-Allow-Origin': origin } : {}),
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    Vary: 'Origin',
+    ...(!ALLOW_ALL_ORIGINS ? { Vary: 'Origin' } : {}),
   }
 }
 

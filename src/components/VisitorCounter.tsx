@@ -16,23 +16,25 @@ const VisitorCounter = () => {
       const supabaseUrl = String(import.meta.env.VITE_SUPABASE_URL || '').trim();
       const apiKey = String(import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '').trim();
 
-      try {
-        const res = await fetch(`${supabaseUrl}/functions/v1/get-visitor-stats`, {
-          method: 'GET',
-          headers: {
-            apikey: apiKey,
-          },
-        });
+      if (supabaseUrl && apiKey) {
+        try {
+          const res = await fetch(`${supabaseUrl}/functions/v1/get-visitor-stats`, {
+            method: 'GET',
+            headers: {
+              apikey: apiKey,
+            },
+          });
 
-        if (res.ok) {
-          const body = (await res.json()) as { count?: number };
-          if (typeof body.count === 'number') {
-            setVisitorCount(body.count);
-            return;
+          if (res.ok) {
+            const body = (await res.json()) as { count?: number };
+            if (typeof body.count === 'number') {
+              setVisitorCount(body.count);
+              return;
+            }
           }
+        } catch {
+          // Fall through to invoke fallback.
         }
-      } catch {
-        // Fall through to invoke fallback.
       }
 
       const { data, error } = await supabase.functions.invoke('get-visitor-stats', {
@@ -50,6 +52,7 @@ const VisitorCounter = () => {
         });
 
         if (error) {
+          await fetchLatestCount();
           setIsLoading(false);
           return;
         }

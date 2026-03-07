@@ -4,21 +4,24 @@ const DEFAULT_ALLOWED_ORIGINS = [
   'http://localhost:8080',
   'http://localhost:8081',
 ]
-const ALLOWED_ORIGINS = (Deno.env.get('ALLOWED_ORIGINS') ?? DEFAULT_ALLOWED_ORIGINS.join(','))
+const CONFIGURED_ALLOWED_ORIGINS = (Deno.env.get('ALLOWED_ORIGINS') ?? '').trim()
+const ALLOWED_ORIGINS = (CONFIGURED_ALLOWED_ORIGINS || DEFAULT_ALLOWED_ORIGINS.join(','))
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean)
-const ALLOW_ALL_ORIGINS = ALLOWED_ORIGINS.includes('*')
-const VISITOR_HASH_SALT = Deno.env.get('VISITOR_HASH_SALT')
+const ALLOW_ALL_ORIGINS = !CONFIGURED_ALLOWED_ORIGINS || ALLOWED_ORIGINS.includes('*')
+const VISITOR_HASH_SALT = (Deno.env.get('VISITOR_HASH_SALT') ?? '').trim()
 const RATE_LIMIT_WINDOW_MS = 60_000
 const RATE_LIMIT_MAX_REQUESTS = 30
 const requestLog = new Map<string, number[]>()
 const INDIA_TIMEZONE = 'Asia/Kolkata'
 const VISITOR_BASE_COUNT = Number.parseInt(Deno.env.get('VISITOR_BASE_COUNT') ?? '147', 10) || 147
+let didWarnAboutSaltFallback = false
 
 function isAllowedOrigin(origin: string | null) {
+  if (ALLOW_ALL_ORIGINS) return true
   if (!origin) return false
-  if (ALLOW_ALL_ORIGINS || ALLOWED_ORIGINS.includes(origin)) return true
+  if (ALLOWED_ORIGINS.includes(origin)) return true
 
   try {
     const parsed = new URL(origin)
@@ -40,14 +43,73 @@ function getCorsHeaders(origin: string | null) {
     ...(!ALLOW_ALL_ORIGINS && isAllowed && origin ? { 'Access-Control-Allow-Origin': origin } : {}),
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    Vary: 'Origin',
+    ...(!ALLOW_ALL_ORIGINS ? { Vary: 'Origin' } : {}),
   }
 }
 
-function isValidIp(ip: string) {
-  const ipv4 = /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/
-  const ipv6 = /^[0-9a-fA-F:]+$/
-  return ipv4.test(ip) || ipv6.test(ip)
+function normalizeClientAddress(value: string) {
+  let candidate = value.trim().replace(/^"+|"+$/g, '')
+  if (!candidate) return ''
+
+  // Keep the first forwarded value only.
+  if (candidate.includes(',')) {
+    candidate = candidate.split(',')[0].trim()
+  }
+
+  // [IPv6]:port
+  if (candidate.startsWith('[') && candidate.includes(']')) {
+    candidate = candidate.slice(1, candidate.indexOf(']'))
+  }
+
+  // IPv4:port
+  if (/^\d{1,3}(?:\.\d{1,3}){3}:\d+$/.test(candidate)) {
+    candidate = candidate.split(':')[0]
+  }
+
+  // IPv4-mapped IPv6
+  if (candidate.startsWith('::ffff:')) {
+    candidate = candidate.slice('::ffff:'.length)
+  }
+
+  // IPv6 zone index
+  if (candidate.includes('%')) {
+    candidate = candidate.split('%')[0]
+  }
+
+  return candidate.trim()
+}
+
+function getClientAddress(req: Request) {
+  const candidates = [
+    req.headers.get('cf-connecting-ip'),
+    req.headers.get('x-real-ip'),
+    req.headers.get('x-forwarded-for'),
+  ]
+
+  for (const raw of candidates) {
+    if (!raw) continue
+    const normalized = normalizeClientAddress(raw)
+    if (normalized) return normalized
+  }
+
+  // Last-resort fingerprint to avoid freezing the counter when proxy headers are absent.
+  const userAgent = (req.headers.get('user-agent') ?? '').trim()
+  const acceptLanguage = (req.headers.get('accept-language') ?? '').trim()
+  const fallback = `${userAgent}|${acceptLanguage}`.trim()
+  return fallback || 'unknown-client'
+}
+
+function getVisitorHashSalt() {
+  if (VISITOR_HASH_SALT) {
+    return VISITOR_HASH_SALT
+  }
+
+  const projectScopedFallback = (Deno.env.get('SUPABASE_URL') ?? '').trim() || 'default'
+  if (!didWarnAboutSaltFallback) {
+    didWarnAboutSaltFallback = true
+    console.warn('VISITOR_HASH_SALT is missing. Using project-scoped fallback salt.')
+  }
+  return `fallback:${projectScopedFallback}`
 }
 
 async function sha256(value: string) {
@@ -106,25 +168,10 @@ Deno.serve(async (req) => {
     })
   }
 
-  if (!VISITOR_HASH_SALT) {
-    console.error('VISITOR_HASH_SALT is not configured.')
-    return new Response(JSON.stringify({ error: 'Service unavailable' }), {
-      status: 503,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
-  }
-
   try {
-    const forwardedFor = req.headers.get('x-forwarded-for')
-    const clientIp = forwardedFor?.split(',')[0]?.trim()
-    if (!clientIp || !isValidIp(clientIp)) {
-      return new Response(JSON.stringify({ error: 'Invalid client address' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
-    }
-
-    const ipHash = await sha256(`${VISITOR_HASH_SALT}:${clientIp}`)
+    const clientAddress = getClientAddress(req)
+    const hashSalt = getVisitorHashSalt()
+    const ipHash = await sha256(`${hashSalt}:${clientAddress}`)
     if (isRateLimited(ipHash)) {
       return new Response(JSON.stringify({ error: 'Too many requests' }), {
         status: 429,
