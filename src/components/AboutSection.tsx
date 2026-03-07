@@ -11,7 +11,7 @@ const AboutSection = () => {
     {
       icon: Lightbulb,
       title: 'Live Problem Statements',
-      description: 'Problem statements are released only during hackathon kickoff.',
+      description: 'Each team receives a specific assigned problem statement only at kickoff.',
       color: 'secondary',
     },
     {
@@ -23,7 +23,7 @@ const AboutSection = () => {
     {
       icon: Zap,
       title: 'Time-Bound Execution',
-      description: 'Teams must solve the assigned PS within official hackathon time.',
+      description: 'Hackathon runs from March 13, 11:00 AM to March 15, 6:00 PM.',
       color: 'primary',
     },
   ];
@@ -40,7 +40,8 @@ const AboutSection = () => {
           </h2>
           <p className="font-inter text-lg text-muted-foreground leading-relaxed">
             VibeCoding March 2026 is a team-based online hackathon by <span className="text-primary font-semibold">NxtGenSec</span>.
-            Registration starts on March 4, hackathon runs March 13-15, evaluation on March 16-17, and results on March 18.
+            Registration opens on March 8. Hackathon begins on March 13 at 11:00 AM and ends on March 15 at 6:00 PM.
+            Evaluation runs March 16-17, and final results are announced on March 18.
           </p>
         </div>
 

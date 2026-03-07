@@ -14,7 +14,7 @@ const ChallengesSection = () => {
             <span className="text-gradient">Challenges</span>
           </h2>
           <p className="font-inter text-lg text-muted-foreground">
-            Problem statements are not published in advance.
+            Problem statements are not published in advance and are assigned at kickoff.
           </p>
         </div>
 
@@ -28,12 +28,12 @@ const ChallengesSection = () => {
             </div>
           </div>
 
-          <h3 className="font-orbitron text-2xl font-bold mb-3">Challenges Will Be Given During Hackathon Time</h3>
+          <h3 className="font-orbitron text-2xl font-bold mb-3">Assigned Challenges Start at Kickoff</h3>
           <p className="font-inter text-muted-foreground mb-6">
-            Teams receive fresh problem statements at kickoff and must solve them within the official hackathon window.
+            Each team receives a specific assigned problem statement at kickoff and must build only for that statement.
           </p>
           <p className="font-inter text-sm text-accent mb-8">
-            No prior problem statement is shared.
+            Submissions that do not strictly address the assigned statement will not be accepted.
           </p>
 
           <Link to="/register">

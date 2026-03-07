@@ -4,31 +4,38 @@ const TimelineSection = () => {
   const events = [
     {
       icon: Calendar,
-      date: 'March 4, 2026',
+      date: 'March 8, 2026',
       title: 'Registration Starts (Free)',
       description: 'Team registration opens. Participation is free for all eligible teams.',
       color: 'primary',
     },
     {
       icon: PlayCircle,
-      date: 'March 13 - 15, 2026',
-      title: 'Hackathon Build Window',
-      description: 'Participants solve the given problem statements during hackathon time only.',
+      date: 'March 13, 2026 | 11:00 AM',
+      title: 'Hackathon Kickoff',
+      description: 'Teams receive assigned problem statements and must work only on that assigned statement.',
       color: 'secondary',
+    },
+    {
+      icon: Flag,
+      date: 'March 15, 2026 | 6:00 PM',
+      title: 'Hackathon Submission Deadline',
+      description: 'Hackathon concludes at 6:00 PM. No submissions are accepted after this time.',
+      color: 'accent',
     },
     {
       icon: Flag,
       date: 'March 16 - 17, 2026',
       title: 'Evaluation Phase',
       description: 'Judges review submissions, demos, and implementation quality.',
-      color: 'accent',
+      color: 'primary',
     },
     {
       icon: Trophy,
       date: 'March 18, 2026',
       title: 'Results Declaration',
       description: 'Final winners are announced with edition highlights and showcase.',
-      color: 'primary',
+      color: 'secondary',
     },
   ];
 
@@ -73,10 +80,10 @@ const TimelineSection = () => {
           <div className="p-8 rounded-2xl card-gradient border border-primary/30 glow-primary text-center">
             <p className="font-orbitron text-sm text-primary mb-2 tracking-widest">MARCH EDITION SCHEDULE</p>
             <h3 className="font-orbitron text-2xl md:text-3xl font-bold text-foreground mb-4">
-              13 - 15 March (Build), 16 - 17 (Evaluation), 18 (Results)
+              13 Mar, 11:00 AM (Kickoff) to 15 Mar, 6:00 PM (Deadline)
             </h3>
             <p className="font-inter text-muted-foreground mb-6">
-              Registration starts March 4 and is completely free.
+              Registration opens March 8, evaluation runs March 16-17, and results are declared on March 18.
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <div className="px-4 py-2 rounded-lg bg-card border border-border">
