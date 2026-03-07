@@ -3,8 +3,8 @@ import { Users, Ticket, FileQuestion, Trophy, Calendar, Wifi } from 'lucide-reac
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 
-// Hackathon start: March 13, 2026 at 11:00:00 IST (UTC+5:30)
-const HACKATHON_START = new Date('2026-03-13T11:00:00+05:30').getTime();
+// Hackathon start: March 15, 2026 at 00:00:00 IST (UTC+5:30)
+const HACKATHON_START = new Date('2026-03-15T00:00:00+05:30').getTime();
 
 interface TimeLeft {
   days: number;
@@ -129,11 +129,11 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 animate-slide-in" style={{ animationDelay: '0.7s' }}>
               <div className="px-6 py-4 rounded-xl bg-card border border-primary/30">
                 <p className="font-inter text-xs text-muted-foreground mb-1">REGISTRATION OPENS</p>
-                <p className="font-orbitron text-xl font-bold text-primary">MAR 8</p>
+                <p className="font-orbitron text-xl font-bold text-primary">MAR 10</p>
               </div>
               <div className="px-6 py-4 rounded-xl bg-card border border-secondary/30">
                 <p className="font-inter text-xs text-muted-foreground mb-1">HACKATHON</p>
-                <p className="font-orbitron text-xl font-bold text-secondary">13 MAR, 11:00 AM</p>
+                <p className="font-orbitron text-xl font-bold text-secondary">15 - 17 MAR 2026</p>
               </div>
             </div>
           </div>

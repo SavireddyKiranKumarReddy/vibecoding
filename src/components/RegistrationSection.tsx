@@ -7,7 +7,7 @@ const RegistrationSection = () => {
     'Form a team (exactly 2 members)',
     'Complete free registration',
     'Receive your assigned problem statement at kickoff',
-    'Build only for the assigned statement and submit by March 15, 6:00 PM',
+    'Build only for the assigned statement during March 15-17',
   ];
 
   return (
@@ -20,7 +20,7 @@ const RegistrationSection = () => {
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/30 mb-6">
                 <CheckCircle className="w-4 h-4 text-secondary" />
-                <span className="font-orbitron text-sm text-secondary font-semibold">REGISTRATIONS OPEN FROM MARCH 8</span>
+                <span className="font-orbitron text-sm text-secondary font-semibold">REGISTRATIONS OPEN FROM MARCH 10</span>
               </div>
 
               <h2 className="font-orbitron text-3xl md:text-4xl font-bold mb-4">
@@ -28,7 +28,7 @@ const RegistrationSection = () => {
                 <span className="text-gradient">Register</span>
               </h2>
               <p className="font-inter text-lg text-muted-foreground max-w-2xl mx-auto">
-                Follow these steps to register and prepare for kickoff on March 13 at 11:00 AM.
+                Follow these steps to register and prepare for the 3-day hackathon (March 15-17).
               </p>
             </div>
 

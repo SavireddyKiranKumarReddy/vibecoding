@@ -4,12 +4,12 @@ const FaqRulesSection = () => {
   const rules = [
     'Team-based registration only. Individual participation is not allowed for March edition.',
     'Each team must have exactly 2 members.',
-    'Registration is free and opens on March 8, 2026.',
-    'Hackathon begins on March 13, 2026 at 11:00 AM.',
+    'Registration is free and opens on March 10, 2026.',
+    'Hackathon runs for 3 days: March 15-17, 2026.',
     'Each team will receive a specific assigned problem statement at kickoff.',
     'Teams must work exclusively on their assigned statement using their own exploration, research, and analysis.',
-    'Hackathon concludes on March 15, 2026 at 6:00 PM. No submissions are accepted after this deadline.',
-    'Evaluation runs on March 16-17. Final winners/results are announced on March 18.',
+    'Filtration phase runs on March 18-20, 2026.',
+    'Final winners/results are announced on March 21, 2026.',
     'Any plagiarism or unfair practice leads to immediate disqualification.',
     "Judges' decision is final.",
   ];

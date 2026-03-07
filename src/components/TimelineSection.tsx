@@ -1,41 +1,34 @@
-import { Calendar, PlayCircle, Flag, Trophy } from 'lucide-react';
+import { Calendar, PlayCircle, Flag } from 'lucide-react';
 
 const TimelineSection = () => {
   const events = [
     {
       icon: Calendar,
-      date: 'March 8, 2026',
+      date: 'March 10, 2026',
       title: 'Registration Starts (Free)',
       description: 'Team registration opens. Participation is free for all eligible teams.',
       color: 'primary',
     },
     {
       icon: PlayCircle,
-      date: 'March 13, 2026 | 11:00 AM',
-      title: 'Hackathon Kickoff',
-      description: 'Teams receive assigned problem statements and must work only on that assigned statement.',
+      date: 'March 15 - 17, 2026',
+      title: 'Hackathon (3 Days)',
+      description: 'Teams build and submit solutions during the official 3-day hackathon window.',
       color: 'secondary',
     },
     {
       icon: Flag,
-      date: 'March 15, 2026 | 6:00 PM',
-      title: 'Hackathon Submission Deadline',
-      description: 'Hackathon concludes at 6:00 PM. No submissions are accepted after this time.',
+      date: 'March 18 - 20, 2026',
+      title: 'Filtration Phase',
+      description: 'Submitted projects move through the filtration process.',
       color: 'accent',
     },
     {
       icon: Flag,
-      date: 'March 16 - 17, 2026',
-      title: 'Evaluation Phase',
-      description: 'Judges review submissions, demos, and implementation quality.',
-      color: 'primary',
-    },
-    {
-      icon: Trophy,
-      date: 'March 18, 2026',
+      date: 'March 21, 2026',
       title: 'Results Declaration',
-      description: 'Final winners are announced with edition highlights and showcase.',
-      color: 'secondary',
+      description: 'Final winners/results are announced.',
+      color: 'primary',
     },
   ];
 
@@ -80,19 +73,19 @@ const TimelineSection = () => {
           <div className="p-8 rounded-2xl card-gradient border border-primary/30 glow-primary text-center">
             <p className="font-orbitron text-sm text-primary mb-2 tracking-widest">MARCH EDITION SCHEDULE</p>
             <h3 className="font-orbitron text-2xl md:text-3xl font-bold text-foreground mb-4">
-              13 Mar, 11:00 AM (Kickoff) to 15 Mar, 6:00 PM (Deadline)
+              15 - 17 Mar (Hackathon), 18 - 20 (Filtration), 21 (Results)
             </h3>
             <p className="font-inter text-muted-foreground mb-6">
-              Registration opens March 8, evaluation runs March 16-17, and results are declared on March 18.
+              Registration opens March 10 and is completely free.
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <div className="px-4 py-2 rounded-lg bg-card border border-border">
                 <span className="font-orbitron text-2xl font-bold text-primary">3</span>
-                <p className="font-inter text-xs text-muted-foreground">Build Days</p>
+                <p className="font-inter text-xs text-muted-foreground">Hackathon Days</p>
               </div>
               <div className="px-4 py-2 rounded-lg bg-card border border-border">
-                <span className="font-orbitron text-2xl font-bold text-secondary">2</span>
-                <p className="font-inter text-xs text-muted-foreground">Eval Days</p>
+                <span className="font-orbitron text-2xl font-bold text-secondary">3</span>
+                <p className="font-inter text-xs text-muted-foreground">Filtration Days</p>
               </div>
               <div className="px-4 py-2 rounded-lg bg-card border border-border">
                 <span className="font-orbitron text-2xl font-bold text-accent">Free</span>

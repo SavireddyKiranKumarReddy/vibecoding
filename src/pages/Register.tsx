@@ -184,7 +184,7 @@ const Register = () => {
         <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
           <h1 className="font-orbitron text-3xl md:text-4xl font-bold mb-2">Team Registration</h1>
           <p className="font-inter text-muted-foreground mb-8">
-            Registration opens March 8, 2026. Team-based entry only with maximum 2 members per team.
+            Registration opens March 10, 2026. Team-based entry only with maximum 2 members per team.
           </p>
           <div className="mb-8 rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm text-amber-100">
             <p>Note: Both members must share this hackathon on LinkedIn and submit the post URLs below.</p>
@@ -263,7 +263,7 @@ const Register = () => {
               <CheckCircle2 className="w-10 h-10 text-secondary mx-auto mb-3" />
               <p className="font-orbitron text-xl font-bold mb-2">Team Registration Received</p>
               <p className="font-inter text-muted-foreground mb-5">
-                Hackathon kickoff is March 13 at 11:00 AM. Your team will receive an assigned problem statement at kickoff.
+                Hackathon runs from March 15-17. Filtration is March 18-20, and results are announced on March 21.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link to="/registered-teams">
