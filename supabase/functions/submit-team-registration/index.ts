@@ -26,8 +26,14 @@ type RegistrationPayload = {
 
 const REQUIRED_FIELDS: Array<keyof RegistrationPayload> = [
   'teamName',
+  'member1Name',
   'member1Email',
   'member1Contact',
+  'member1PostLink',
+  'member2Name',
+  'member2Email',
+  'member2Contact',
+  'member2PostLink',
 ]
 
 function isAllowedOrigin(origin: string | null) {

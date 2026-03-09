@@ -120,7 +120,22 @@ const HeroSection = () => {
             ))}
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 animate-slide-in" style={{ animationDelay: '0.8s' }}>
+            <Link to="/register">
+              <Button variant="hero" size="xl">
+                <Trophy className="w-5 h-5" />
+                Register Your Team
+              </Button>
+            </Link>
+            <a href="#challenges">
+              <Button variant="heroOutline" size="xl">
+                <Calendar className="w-5 h-5" />
+                View Challenges
+              </Button>
+            </a>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             <div className="px-8 py-4 rounded-xl bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/40 glow-accent animate-slide-in" style={{ animationDelay: '0.6s' }}>
               <p className="font-inter text-sm text-accent mb-1">PRIZE POOL UP TO</p>
               <p className="font-orbitron text-3xl md:text-4xl font-bold text-accent">Rs.5,000</p>
@@ -136,21 +151,6 @@ const HeroSection = () => {
                 <p className="font-orbitron text-xl font-bold text-secondary">15 - 17 MAR 2026</p>
               </div>
             </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-in" style={{ animationDelay: '0.8s' }}>
-            <Link to="/register">
-              <Button variant="hero" size="xl">
-                <Trophy className="w-5 h-5" />
-                Register Your Team
-              </Button>
-            </Link>
-            <a href="#challenges">
-              <Button variant="heroOutline" size="xl">
-                <Calendar className="w-5 h-5" />
-                View Challenges
-              </Button>
-            </a>
           </div>
         </div>
       </div>

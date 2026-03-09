@@ -28,8 +28,14 @@ type RegistrationForm = {
 const normalize = (value: string) => value.trim();
 const REQUIRED_LABELS: Array<{ key: keyof RegistrationForm; label: string }> = [
   { key: 'teamName', label: 'Team Name' },
+  { key: 'member1Name', label: 'Team Lead Name' },
   { key: 'member1Email', label: 'Team Lead Email' },
   { key: 'member1Contact', label: 'Team Lead Contact' },
+  { key: 'member1PostLink', label: 'Team Lead LinkedIn Post URL' },
+  { key: 'member2Name', label: 'Team Mate Name' },
+  { key: 'member2Email', label: 'Team Mate Email' },
+  { key: 'member2Contact', label: 'Team Mate Contact' },
+  { key: 'member2PostLink', label: 'Team Mate LinkedIn Post URL' },
 ];
 
 const initialForm: RegistrationForm = {
@@ -187,14 +193,24 @@ const Register = () => {
             Registration opens March 10, 2026. Team-based entry only with maximum 2 members per team.
           </p>
           <div className="mb-8 rounded-xl border border-amber-400/30 bg-amber-400/10 p-4 text-sm text-amber-100">
-            <p>Note: Both members must share this hackathon on LinkedIn and submit the post URLs below.</p>
-            <p className="mt-2">All details are manually verified. If faulty details are found, the team can be disqualified.</p>
+            <p className="font-semibold mb-2">📢 Important: LinkedIn Post Requirement</p>
+            <p className="mb-2">Both team members MUST repost or share this hackathon announcement on LinkedIn:</p>
+            <a 
+              href="https://www.linkedin.com/posts/nxtgensec_hackathon-vibecoding-nxtgensec-activity-7436824291460939776-KTYG?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZRRl0BvbXddDNmrIZ4a_gNMAsJcDmLlPQ" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-amber-200 underline hover:text-amber-100 break-all"
+            >
+              View Original Post on LinkedIn
+            </a>
+            <p className="mt-3">After posting, submit the URL of your LinkedIn post below. This is mandatory for both members.</p>
+            <p className="mt-2 text-amber-200">⚠️ All details are manually verified. Faulty or missing details may result in disqualification.</p>
           </div>
 
           {!submitted ? (
             <form onSubmit={onSubmit} className="grid gap-6">
               <div>
-                <label className="mb-2 block font-inter text-sm">Team Name</label>
+                <label className="mb-2 block font-inter text-sm">Team Name *</label>
                 <input
                   name="teamName"
                   value={form.teamName}
@@ -209,30 +225,30 @@ const Register = () => {
                 <div className="rounded-xl border border-border p-5 md:p-6">
                   <h2 className="font-orbitron text-xl font-semibold mb-5">Team Lead (Person 1)</h2>
                   <div className="space-y-4">
-                    <Field label="Name" name="member1Name" value={form.member1Name} onChange={onChange} placeholder="Full name" />
-                    <Field label="Email" name="member1Email" value={form.member1Email} onChange={onChange} placeholder="name@email.com" required />
-                    <Field label="Contact" name="member1Contact" value={form.member1Contact} onChange={onChange} placeholder="+91..." required />
+                    <Field label="Name *" name="member1Name" value={form.member1Name} onChange={onChange} placeholder="Full name" required />
+                    <Field label="Email *" name="member1Email" value={form.member1Email} onChange={onChange} placeholder="name@email.com" required />
+                    <Field label="Contact *" name="member1Contact" value={form.member1Contact} onChange={onChange} placeholder="+91..." required />
                     <Field label="College" name="member1College" value={form.member1College} onChange={onChange} placeholder="College name" />
                     <Field label="Year" name="member1Year" value={form.member1Year} onChange={onChange} placeholder="1st/2nd/3rd/4th" />
                     <Field label="Department" name="member1Department" value={form.member1Department} onChange={onChange} placeholder="CSE/IT/ECE..." />
                     <Field label="LinkedIn" name="member1Linkedin" value={form.member1Linkedin} onChange={onChange} placeholder="https://linkedin.com/in/..." />
                     <Field label="GitHub" name="member1Github" value={form.member1Github} onChange={onChange} placeholder="https://github.com/..." />
-                    <Field label="LinkedIn Post URL" name="member1PostLink" value={form.member1PostLink} onChange={onChange} placeholder="https://linkedin.com/posts/..." />
+                    <Field label="LinkedIn Post URL *" name="member1PostLink" value={form.member1PostLink} onChange={onChange} placeholder="https://linkedin.com/posts/..." required />
                   </div>
                 </div>
 
                 <div className="rounded-xl border border-border p-5 md:p-6">
                   <h2 className="font-orbitron text-xl font-semibold mb-5">Team Mate (Person 2)</h2>
                   <div className="space-y-4">
-                    <Field label="Name" name="member2Name" value={form.member2Name} onChange={onChange} placeholder="Full name" />
-                    <Field label="Email" name="member2Email" value={form.member2Email} onChange={onChange} placeholder="name@email.com" />
-                    <Field label="Contact" name="member2Contact" value={form.member2Contact} onChange={onChange} placeholder="+91..." />
+                    <Field label="Name *" name="member2Name" value={form.member2Name} onChange={onChange} placeholder="Full name" required />
+                    <Field label="Email *" name="member2Email" value={form.member2Email} onChange={onChange} placeholder="name@email.com" required />
+                    <Field label="Contact *" name="member2Contact" value={form.member2Contact} onChange={onChange} placeholder="+91..." required />
                     <Field label="College" name="member2College" value={form.member2College} onChange={onChange} placeholder="College name" />
                     <Field label="Year" name="member2Year" value={form.member2Year} onChange={onChange} placeholder="1st/2nd/3rd/4th" />
                     <Field label="Department" name="member2Department" value={form.member2Department} onChange={onChange} placeholder="CSE/IT/ECE..." />
                     <Field label="LinkedIn" name="member2Linkedin" value={form.member2Linkedin} onChange={onChange} placeholder="https://linkedin.com/in/..." />
                     <Field label="GitHub" name="member2Github" value={form.member2Github} onChange={onChange} placeholder="https://github.com/..." />
-                    <Field label="LinkedIn Post URL" name="member2PostLink" value={form.member2PostLink} onChange={onChange} placeholder="https://linkedin.com/posts/..." />
+                    <Field label="LinkedIn Post URL *" name="member2PostLink" value={form.member2PostLink} onChange={onChange} placeholder="https://linkedin.com/posts/..." required />
                   </div>
                 </div>
               </div>
