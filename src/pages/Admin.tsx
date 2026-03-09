@@ -324,6 +324,7 @@ const Admin = () => {
                 <table className="w-max min-w-full text-left text-xs">
                   <thead className="bg-background/80">
                     <tr className="border-b border-border">
+                      <th className="px-3 py-2">#</th>
                       <th className="px-3 py-2">Team</th>
                       <th className="px-3 py-2">Submitted</th>
                       <th className="px-3 py-2">Name</th>
@@ -339,9 +340,10 @@ const Admin = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {records.map((record) => (
+                    {records.map((record, index) => (
                       <Fragment key={record.id}>
                         <tr key={`${record.id}-lead`} className="border-b border-border/60 align-top">
+                          <td className="px-3 py-2 text-center font-bold text-primary align-middle" rowSpan={2}>{index + 1}</td>
                           <td className="px-3 py-2 text-center font-bold align-middle" rowSpan={2}>{cell(record, 'team_name')}</td>
                           <td className="px-3 py-2 align-middle" rowSpan={2}>
                             {new Date(record.created_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
@@ -397,7 +399,7 @@ const Admin = () => {
                           <td className="px-3 py-2">{editingId === record.id ? cell(record, 'member2_post_link') : linkCell(record.member2_post_link)}</td>
                         </tr>
                         <tr className="h-3 bg-background/60">
-                          <td colSpan={12} />
+                          <td colSpan={13} />
                         </tr>
                       </Fragment>
                     ))}

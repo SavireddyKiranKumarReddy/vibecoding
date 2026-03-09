@@ -37,8 +37,9 @@ const RegisteredTeams = () => {
             <p className="font-inter text-muted-foreground">No teams registered yet.</p>
           ) : (
             <div className="grid sm:grid-cols-2 gap-3">
-              {teams.map((team) => (
-                <article key={team} className="rounded-xl border border-border p-4">
+              {teams.map((team, index) => (
+                <article key={team} className="rounded-xl border border-border p-4 flex items-center gap-3">
+                  <span className="font-orbitron text-lg font-bold text-primary min-w-[2rem]">{index + 1}.</span>
                   <p className="font-orbitron text-base font-bold">{team}</p>
                 </article>
               ))}
