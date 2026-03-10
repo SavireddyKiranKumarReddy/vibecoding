@@ -60,17 +60,17 @@ const PastWinnersSection = () => {
               </div>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="rounded-xl border border-border/70 p-4">
-                  <p className="font-inter text-xs uppercase tracking-wide text-primary mb-3">Winner - Tech Nova</p>
-                  <div className="space-y-2">
-                    <MemberRow member={{ name: 'Varshith Kumar', github: '#', linkedin: '#' }} />
-                    <MemberRow member={{ name: 'Bharath Kumar', github: '#', linkedin: '#' }} />
-                  </div>
-                </div>
-                <div className="rounded-xl border border-border/70 p-4">
-                  <p className="font-inter text-xs uppercase tracking-wide text-muted-foreground mb-3">Runner - GenZ</p>
+                  <p className="font-inter text-xs uppercase tracking-wide text-primary mb-3">Winner - GenZ</p>
                   <div className="space-y-2">
                     <MemberRow member={{ name: 'Mani Charan', github: '#', linkedin: '#' }} />
                     <MemberRow member={{ name: 'Gowthami Priya', github: '#', linkedin: '#' }} />
+                  </div>
+                </div>
+                <div className="rounded-xl border border-border/70 p-4">
+                  <p className="font-inter text-xs uppercase tracking-wide text-muted-foreground mb-3">Runner - Tech Nova</p>
+                  <div className="space-y-2">
+                    <MemberRow member={{ name: 'Varshith Kumar', github: '#', linkedin: '#' }} />
+                    <MemberRow member={{ name: 'Bharath Kumar', github: '#', linkedin: '#' }} />
                   </div>
                 </div>
               </div>
